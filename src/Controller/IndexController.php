@@ -36,9 +36,15 @@ public function contact(Request $request)
         if ($form->isSubmitted() && $form->isValid()){
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($contact);
-            $entityManager->flush();       
-        
-                //TO DO: rediriger vers une page de confirmation
+            $entityManager->flush();     
+
+                //Ajout d'un message à la session
+                $this->addFlash(
+                    "Success",
+                    "Votre message a été envoyé, merci."
+                );
+                //Redirection vers une page affichant les messsages flash
+                return $this->redirectToRoute('display_flash');
         }    
 
         return $this->render(
@@ -47,4 +53,12 @@ public function contact(Request $request)
         
         );
     }
+    /**
+     *@Route("/display/message", name="display_flash")
+     */
+    public function flash()
+        {
+            return $this->render("index/flash.html.twig");
+
+        }
 }

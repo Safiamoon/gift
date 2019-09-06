@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div classe="container" "mt-4">
+        {# read and display all flash messages 
+           on boucle sur tous les messages flashes
+           _pour chaque type (label), on va avoir une collection de messages
+           _on va donc faire une boucle sur les messages de chaque type 
+           _pour chaque message, on génère une div de type alert de Bootstrap
+        
+        #}
+        {% for label, messages in app.flashes %}
+           {% for message in messages %}
+             <div class="alert alert-{{label}}" role="alert">
+                {{ message }}
+             </div>
+            {% endfor %}
+        {% endfor %}
+        <div> 
+        <a href="{{path('accueil')}}"> Retour à l'accueil
+        </div>
+    </div>
+{% endblock %}
